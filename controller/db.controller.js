@@ -27,15 +27,16 @@ module.exports = {
   },
 
   findOne: (collectionName, query, p) => {
-    const projection = p ? p : { _id: 0 };
     const $exist = true;
     return new Promise((resolve) => {
       db.connect((dbo, dberr) => {
         if (!dberr) {
-          dbo.collection(collectionName).findOne(query, { projection, $exist }, (err, result) => {
-            if (err) resolve(err);
-            else resolve(result);
-          });
+          dbo
+            .collection(collectionName)
+            .findOne(query, { p, $exist }, (err, result) => {
+              if (err) resolve(err);
+              else resolve(result);
+            });
         } else {
           resolve(dberr);
         }

@@ -45,7 +45,7 @@ module.exports = {
         bcrypt.compare(password, user.password).then((doMatch) => {
           if (doMatch) {
             delete user.password;
-            const token = jwt.sign(user, CONFIG.JWT_SECRET);
+            const token = jwt.sign({_id:user._id}, CONFIG.JWT_SECRET);
             res.status(200).send(new Success(token));
           } else
             res
@@ -61,4 +61,8 @@ module.exports = {
         .status(500)
         .send(new Error({ message: "Required field missing", code: 502 }));
   },
+
+  getUser: (req, res) => {
+    console.log(req.user);
+  }
 };

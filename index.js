@@ -3,7 +3,8 @@ const cors = require("cors");
 const router = express.Router();
 const app = express();
 const bodyParser = require("body-parser");
-const CONFIG = require('./config');
+const CONFIG = require("./config");
+const requireLogin = require("./middleware/requireLogin");
 
 const account = require("./controller/account.controller");
 
@@ -30,6 +31,8 @@ router.post(`/${routeMatcher}/signup`, account.signUp);
 
 //route for user signin
 router.post(`/${routeMatcher}/signin`, account.signIn);
+
+router.get(`/${routeMatcher}/getUser`, requireLogin, account.getUser);
 
 app.use("/", router);
 app.listen(CONFIG.PORT, (res, err) => {
