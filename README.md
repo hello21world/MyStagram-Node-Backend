@@ -1,2 +1,1 @@
 # MyStagram-Node-Backend
-# Hactoberfest
